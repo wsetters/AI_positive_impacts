@@ -1,0 +1,2188 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Impact Across Industries: Interactive Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f7fa;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            padding: 0;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: center;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            margin-bottom: var(--spacing-md);
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--primary-color);
+            margin: var(--spacing-lg) 0 var(--spacing-md);
+            padding-bottom: var(--spacing-xs);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            color: var(--dark-color);
+            margin: var(--spacing-md) 0 var(--spacing-sm);
+        }
+
+        p {
+            margin-bottom: var(--spacing-md);
+            font-size: clamp(1rem, 1.5vw, 1.1rem);
+        }
+
+        /* Tabs Navigation */
+        .tabs-container {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            padding: var(--spacing-sm) 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            margin-bottom: var(--spacing-md);
+            border-radius: var(--border-radius);
+        }
+
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 0 var(--spacing-sm);
+            scrollbar-width: thin;
+            -ms-overflow-style: none;
+        }
+
+        .tabs::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .tabs::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 10px;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            cursor: pointer;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            font-weight: 600;
+            color: var(--text-light);
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover {
+            color: var(--secondary-color);
+        }
+
+        .tab-button.active {
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: var(--spacing-md);
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: var(--spacing-lg);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Expandable Sections */
+        .expandable-section {
+            margin-bottom: var(--spacing-md);
+            border: 1px solid #e1e4e8;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .expandable-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .expandable-header:hover {
+            background-color: #eaedef;
+        }
+
+        .expandable-header h3 {
+            margin: 0;
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+        }
+
+        .expandable-icon {
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .expandable-content {
+            padding: var(--spacing-md);
+            background-color: white;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-md) 0;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+        }
+
+        th, td {
+            padding: var(--spacing-sm);
+            text-align: left;
+            border-bottom: 1px solid #e1e4e8;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Chart containers */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            max-width: 100%;
+            margin: var(--spacing-md) 0;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 0 0 var(--spacing-md) var(--spacing-lg);
+        }
+
+        li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Grid Layouts */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+        }
+
+        .grid-item {
+            background: white;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                padding: 0 var(--spacing-xs);
+            }
+            
+            .tab-button {
+                padding: var(--spacing-xs) var(--spacing-sm);
+            }
+            
+            .tab-content {
+                padding: var(--spacing-sm);
+            }
+            
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Key stats highlight boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.2));
+            border-left: 4px solid var(--secondary-color);
+            padding: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-xs);
+            font-size: clamp(1.1rem, 2vw, 1.2rem);
+        }
+
+        /* Key points list */
+        .key-points {
+            list-style-type: none;
+        }
+
+        .key-points li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .key-points li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* Special text formatting */
+        .bold {
+            font-weight: 600;
+        }
+
+        .accent {
+            color: var(--accent-color);
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Flowchart display */
+        .flowchart-container {
+            background-color: #f8f9fa;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            margin: var(--spacing-md) 0;
+            overflow-x: auto;
+        }
+
+        .flowchart-container img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Caption for figures and tables */
+        .caption {
+            text-align: center;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: var(--spacing-xs);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Impact Across Industries: Interactive Report</h1>
+            <p class="subtitle">Analyzing transformative applications of artificial intelligence across sectors</p>
+        </header>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="introduction">Introduction</button>
+                <button class="tab-button" data-tab="healthcare">Healthcare</button>
+                <button class="tab-button" data-tab="education">Education</button>
+                <button class="tab-button" data-tab="workforce">Workforce</button>
+                <button class="tab-button" data-tab="finance">Finance</button>
+                <button class="tab-button" data-tab="social">Social Services</button>
+                <button class="tab-button" data-tab="retail">Retail & CPG</button>
+                <button class="tab-button" data-tab="protein">Protein Synthesis</button>
+                <button class="tab-button" data-tab="future">Future Projections</button>
+                <button class="tab-button" data-tab="conclusion">Conclusion</button>
+            </div>
+        </div>
+
+        <!-- Introduction -->
+        <div id="introduction" class="tab-content active">
+            <h2>Introduction</h2>
+            <p>Artificial intelligence (AI) is reshaping modern society by revolutionizing processes, enhancing productivity, and paving the way for ground‐breaking innovations across a wide variety of sectors. Today, AI is not only streamlining routine operations but also providing deep insights into complex challenges—from improving clinical outcomes in healthcare to enabling personalized learning in education and automating knowledge work in business.</p>
+            
+            <div class="highlight-box">
+                <h4>Economic Impact of AI</h4>
+                <p>Generative AI alone could add between $2.6 trillion and $4.4 trillion annually to the global economy, with additional sectors contributing to overall productivity growth ranging from 0.5% to 3.4% per year.</p>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="aiImpactChart"></canvas>
+            </div>
+            <p class="caption">Figure 1: AI's Impact Across Different Sectors</p>
+            
+            <h3>Transformative Potential</h3>
+            <p>In this report, we examine current successes and future projections of AI across all sectors, emphasizing the transformational impact on industries as varied as healthcare, education, finance, social services, retail, and technological research in protein synthesis. We also provide detailed visualizations, tables, and flowcharts that illustrate AI's evolving role in enhancing efficiency and inspiring innovation.</p>
+            
+            <p>The perspectives and data used in this discussion draw on insights from various research reports and case studies, including analyses from McKinsey on generative AI's economic potential, studies on productivity improvements, real-world deployments in social services, and emerging breakthroughs in AI-aided biomedical research.</p>
+        </div>
+
+        <!-- Healthcare -->
+        <div id="healthcare" class="tab-content">
+            <h2>Healthcare and Pharmaceuticals</h2>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Current Applications in Healthcare</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>AI is already having an immense positive impact on healthcare by improving clinical decision-making, streamlining administrative tasks, and accelerating drug discovery. In clinical settings, AI systems analyze vast repositories of patient data—for example, structured electronic health records (EHR) and unstructured clinical notes—to identify high-risk patients, predict disease progression, and suggest personalized treatments.</p>
+                    
+                    <h4>Key areas of current impact include:</h4>
+                    <ul>
+                        <li><strong>Diagnostic Accuracy:</strong> AI-powered diagnostic systems are matching or even surpassing human-level performance in identifying diseases. For instance, algorithms trained on imaging data significantly improve early cancer detection and neurological disorder diagnosis.</li>
+                        <li><strong>Predictive Analytics and Preventative Care:</strong> AI models predict the likelihood of patient deterioration or readmission by analyzing a range of clinical indicators.</li>
+                        <li><strong>Workflow Automation in Healthcare:</strong> Tools such as digital assistants and automated scheduling systems are improving efficiency in hospitals.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Transformative Effects in Pharmaceuticals</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>In pharmaceuticals, AI is transforming the drug discovery and development pipeline. Traditionally, the process of discovering new drug compounds and optimizing them for therapeutic purposes is lengthy, resource-intensive, and costly. AI revolutionizes this area by dramatically accelerating each phase:</p>
+                    
+                    <ul>
+                        <li><strong>Accelerated Lead Identification and Drug Discovery:</strong> AI models transform data from genomic sequences, chemical libraries, and clinical trial databases into actionable insights.</li>
+                        <li><strong>Enhanced Clinical Trial Success Rates:</strong> By optimizing patient selection and predicting adverse reactions, AI increases the likelihood of successful clinical trials.</li>
+                        <li><strong>Protein Synthesis and Structure Prediction:</strong> One of the most promising advances in biomedical research is the use of AI in predicting protein structures—an essential component in target identification for drug development.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Data-Driven Impact: Visual Comparison</h3>
+            <div class="chart-container">
+                <canvas id="drugDiscoveryChart"></canvas>
+            </div>
+            <p class="caption">Figure 2: Traditional vs. AI-Enhanced Drug Discovery Timelines</p>
+            
+            <table>
+                <caption>Table 1: Comparative Analysis of Drug Discovery Timelines and Efficiencies</caption>
+                <thead>
+                    <tr>
+                        <th>Stage of Drug Discovery</th>
+                        <th>Traditional Timeline</th>
+                        <th>AI-Enhanced Timeline</th>
+                        <th>Impact on Efficiency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Target Identification</td>
+                        <td>6–12 months</td>
+                        <td>2–4 weeks</td>
+                        <td>80% reduction</td>
+                    </tr>
+                    <tr>
+                        <td>Lead Compound Identification</td>
+                        <td>1–2 years</td>
+                        <td>3–6 months</td>
+                        <td>Approximately 75% faster</td>
+                    </tr>
+                    <tr>
+                        <td>Protein Structure Prediction</td>
+                        <td>Experimental (variable)</td>
+                        <td>Predictive modeling (95%+ accuracy)</td>
+                        <td>Dramatic acceleration</td>
+                    </tr>
+                    <tr>
+                        <td>Clinical Trial Success Rates</td>
+                        <td>Variable (40–60%)</td>
+                        <td>Improved by up to 40%</td>
+                        <td>Clear increase in success</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Process Flow in Pharmaceutical AI Applications</h3>
+            <div class="flowchart-container">
+                <div class="chart-container">
+                    <canvas id="pharmaFlowChart"></canvas>
+                </div>
+                <p class="caption">Figure 3: AI-Driven Process Flow in Pharmaceutical Drug Discovery</p>
+            </div>
+        </div>
+
+        <!-- Education -->
+        <div id="education" class="tab-content">
+            <h2>Education</h2>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Personalized Learning Environments</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>AI is fundamentally altering the educational landscape by shifting from traditional "one size fits all" approaches to personalized learning environments that cater to individual student needs. Adaptive learning platforms powered by AI analyze detailed data on a student's learning process—such as strengths, weaknesses, pace, and preferred learning styles—to design customized educational content.</p>
+                    
+                    <h4>Notable benefits include:</h4>
+                    <ul>
+                        <li><strong>Adaptive Content Delivery:</strong> AI systems examine students' performance data to adjust the difficulty of exercises and recommend supplemental materials tailored to individual learning gaps. Studies have shown that students exposed to adaptive learning programs experienced a 62% increase in test scores.</li>
+                        <li><strong>Real-Time Feedback and Intelligent Tutoring:</strong> Virtual tutors and chatbots provide immediate corrective feedback and guidance, effectively acting as personalized teaching assistants.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Efficiency and Engagement Improvements</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>AI-driven educational tools also benefit educators. By automating routine assessment tasks and administrative monitoring, teachers are freed to focus on more creative and interactive instructional methods. Tools integrated with predictive analytics help identify students at risk of underperforming, thereby enabling early interventions.</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="educationImpactChart"></canvas>
+            </div>
+            <p class="caption">Figure 4: Educational Performance Improvements with AI Integration</p>
+            
+            <table>
+                <caption>Table 2: Key Educational Benefits of AI Implementation</caption>
+                <thead>
+                    <tr>
+                        <th>Educational Metric</th>
+                        <th>Traditional Approach</th>
+                        <th>AI-Enhanced Approach</th>
+                        <th>Improvement (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Test Score Improvement</td>
+                        <td>Incremental over semesters</td>
+                        <td>+62% improvement</td>
+                        <td>Up to 62% increase</td>
+                    </tr>
+                    <tr>
+                        <td>Personalized Learning Scale</td>
+                        <td>One curriculum for all</td>
+                        <td>Adaptive content per student</td>
+                        <td>Variable based on needs</td>
+                    </tr>
+                    <tr>
+                        <td>Teacher Workload Reduction</td>
+                        <td>Manual grading, monitoring</td>
+                        <td>Automated assessments</td>
+                        <td>Significant time saving</td>
+                    </tr>
+                    <tr>
+                        <td>Student Engagement and Retention</td>
+                        <td>Uniform instruction</td>
+                        <td>Real-time feedback and guidance</td>
+                        <td>Enhanced engagement</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Visualizing Adaptive Learning Flow</h3>
+            <div class="flowchart-container">
+                <div class="chart-container">
+                    <canvas id="learningFlowChart"></canvas>
+                </div>
+                <p class="caption">Figure 5: AI-Driven Adaptive Learning Process in Education</p>
+            </div>
+            
+            <p>This new paradigm is transforming not only K–12 education but also higher education and lifelong learning by ensuring that educational content is responsive to learners' ongoing needs.</p>
+        </div>
+
+        <!-- Workforce -->
+        <div id="workforce" class="tab-content">
+            <h2>Workforce and Business Operations</h2>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Enhancing Productivity</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>AI has become an indispensable tool for enhancing productivity in the modern workplace. Studies have revealed that the use of AI tools, such as ChatGPT and other generative systems, can increase overall productivity by up to 66%. These productivity gains are most pronounced among less-skilled workers, who benefit from AI's capacity to bridge skills gaps and deliver immediate, high-quality outputs.</p>
+                    
+                    <h4>Key performance improvements include:</h4>
+                    <ul>
+                        <li><strong>Throughput Increase:</strong> In experiments across diverse domains—from customer service to coding—AI assistance has led to a marked escalation in output. For instance, call center representatives experienced a 14% productivity boost in resolving customer issues, with even greater improvements (up to 35%) for lower-skilled employees.</li>
+                        <li><strong>Quality Enhancement and Error Reduction:</strong> When combined with human editing, AI-generated drafts result in fewer errors while narrowing the performance gap between novice and expert employees.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Automation and Workforce Transformation</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>The potential for automating routine work tasks is significant. According to projections, current AI technologies could automate 60–70% of work activities, and updated adoption scenarios suggest that up to half of today's work functions could be automated between 2030 and 2060—with a midpoint around 2045. This leads to broader economic impacts and shifts in workforce dynamics.</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="workforceAutomationChart"></canvas>
+            </div>
+            <p class="caption">Figure 6: Projected Timeline for Workforce Automation and Productivity Gains</p>
+            
+            <h3>Visual and Quantitative Impact on Business Operations</h3>
+            <table>
+                <caption>Table 3: AI-Induced Productivity Improvements in Various Business Functions</caption>
+                <thead>
+                    <tr>
+                        <th>Business Domain</th>
+                        <th>AI Productivity Increase</th>
+                        <th>Estimated Economic Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Customer Operations</td>
+                        <td>+30–45% efficiency gains</td>
+                        <td>$310B annual value for retail</td>
+                    </tr>
+                    <tr>
+                        <td>Marketing & Sales</td>
+                        <td>+5–15% enhancement</td>
+                        <td>5–15% of total marketing spend</td>
+                    </tr>
+                    <tr>
+                        <td>Software Engineering</td>
+                        <td>+20–45% advance</td>
+                        <td>Similar percentage in spending</td>
+                    </tr>
+                    <tr>
+                        <td>Research & Development</td>
+                        <td>+10–15% improvement</td>
+                        <td>Overall industry R&D cost reduction</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="highlight-box">
+                <h4>Key Finding: Productivity Enhancement</h4>
+                <p>AI tools have demonstrated the ability to increase overall productivity by up to 66%, with particularly significant benefits for less-skilled workers who can leverage AI to bridge skill gaps.</p>
+            </div>
+        </div>
+
+        <!-- Finance -->
+        <div id="finance" class="tab-content">
+            <h2>Banking and Finance</h2>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>AI-Driven Financial Innovations</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>In the financial services sector, AI is a catalyst for innovation, offering both immediate and long-term benefits. Banks and financial institutions are deploying AI systems to streamline operations, manage risk, and enhance customer experiences.</p>
+                    
+                    <h4>Key areas include:</h4>
+                    <ul>
+                        <li><strong>Credit Scoring and Fraud Detection:</strong> AI algorithms analyze transaction data with high precision, detecting fraudulent activities and assessing credit risk more quickly than traditional models.</li>
+                        <li><strong>Personalized Financial Advice:</strong> Chatbots and virtual assistants guide customers with tailored financial advice, from investment strategies to daily banking queries.</li>
+                        <li><strong>Operational Efficiency:</strong> Routine tasks such as processing payments and regulatory compliance reporting are increasingly automated, reducing manual errors and labor costs.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="financialImpactChart"></canvas>
+            </div>
+            <p class="caption">Figure 7: Financial Value Creation Through AI Applications</p>
+            
+            <h3>Quantitative Impact in Banking</h3>
+            <table>
+                <caption>Table 4: Financial Value Creation Through AI Applications</caption>
+                <thead>
+                    <tr>
+                        <th>Financial Application</th>
+                        <th>AI Application Impact</th>
+                        <th>Estimated Incremental Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Credit Risk Analysis</td>
+                        <td>Faster approvals, reduced fraud</td>
+                        <td>$200B–$340B annually (global banking)</td>
+                    </tr>
+                    <tr>
+                        <td>Trading and Investment</td>
+                        <td>Algorithmic trading efficiency</td>
+                        <td>Significant margin improvements</td>
+                    </tr>
+                    <tr>
+                        <td>Customer Service</td>
+                        <td>Chatbot & virtual support</td>
+                        <td>Reduced operational costs and improved engagement</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="highlight-box">
+                <h4>Banking Efficiency Gains</h4>
+                <p>AI-driven solutions have been linked with a decrease in processing times for routine banking transactions by up to 60%.</p>
+            </div>
+        </div>
+
+        <!-- Social Services -->
+        <div id="social" class="tab-content">
+            <h2>Social Services</h2>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Revolutionizing Social Care with AI</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Social services are emerging as a key field where AI creates a positive societal impact by improving the allocation of resources and predicting social risks. The use of AI in social services has been transformative in reducing costs while increasing the effectiveness of preventative interventions.</p>
+                    
+                    <h4>Illustrative cases:</h4>
+                    <ul>
+                        <li><strong>Homelessness Prediction and Intervention:</strong> The Orange County United Way has implemented an AI-enhanced Homeless Management Information System (HMIS) that integrates data from over 1,000 social service providers.</li>
+                        <li><strong>Elderly Care and Loneliness Prevention:</strong> In Madrid, Spain, the implementation of an AI-powered virtual assistant to screen individuals over 75 reduced emergency calls and facilitated follow-up care.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="socialServicesCostChart"></canvas>
+            </div>
+            <p class="caption">Figure 8: Cost Comparison of Traditional vs. AI-Enabled Preventative Care in Social Services</p>
+            
+            <h3>Efficiency Improvements and Cost Savings</h3>
+            <table>
+                <caption>Table 5: Cost Comparison in Social Services</caption>
+                <thead>
+                    <tr>
+                        <th>Intervention Type</th>
+                        <th>Average Cost Per Case</th>
+                        <th>AI-Driven Preventative Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Crisis Management</td>
+                        <td>~$100,000</td>
+                        <td>&lt;$2,000</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="highlight-box">
+                <h4>Case Study: Madrid Elderly Care</h4>
+                <p>In Madrid, Spain, an AI-powered virtual assistant helped screen over 5,000 seniors, identifying more than 600 individuals who required further intervention, thus mitigating the effects of social isolation.</p>
+            </div>
+        </div>
+
+        <!-- Retail -->
+        <div id="retail" class="tab-content">
+            <h2>Retail and Consumer Packaged Goods (CPG)</h2>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>AI-Enabled Market Transformation</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>The retail sector and consumer packaged goods (CPG) are witnessing major shifts due to AI integration. In these industries, AI is used to optimize supply chain logistics, personalize marketing communications, and streamline customer experiences, creating a competitive advantage and significant economic value.</p>
+                    
+                    <h4>Examples of AI applications in retail include:</h4>
+                    <ul>
+                        <li><strong>Dynamic Pricing and Inventory Management:</strong> AI algorithms analyze market trends, consumer behavior, and stock levels in real time.</li>
+                        <li><strong>Personalized Marketing and Customer Interaction:</strong> Generative AI is being leveraged in marketing and sales to generate tailored content for marketing campaigns and customer engagement.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="retailImpactChart"></canvas>
+            </div>
+            <p class="caption">Figure 9: Economic and Operational Benefits of AI in Retail</p>
+            
+            <h3>Impact Metrics in Retail</h3>
+            <table>
+                <caption>Table 6: Economic and Operational Benefits of AI in Retail and CPG</caption>
+                <thead>
+                    <tr>
+                        <th>Retail Application</th>
+                        <th>AI Benefit</th>
+                        <th>Average Improvement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dynamic Pricing</td>
+                        <td>Increased revenue through optimization</td>
+                        <td>+12%</td>
+                    </tr>
+                    <tr>
+                        <td>Inventory Management</td>
+                        <td>Reduced waste and stockouts</td>
+                        <td>Significant cost saving</td>
+                    </tr>
+                    <tr>
+                        <td>Personalized Marketing</td>
+                        <td>Improved conversion rates</td>
+                        <td>45% increase in CTR</td>
+                    </tr>
+                    <tr>
+                        <td>Customer Service Automation</td>
+                        <td>Faster query resolution</td>
+                        <td>Enhanced customer satisfaction</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="highlight-box">
+                <h4>Marketing ROI</h4>
+                <p>AI-generated product descriptions and email campaigns that target specific customer segments have been shown to increase click-through rates by up to 45%.</p>
+            </div>
+        </div>
+
+        <!-- Protein Synthesis -->
+        <div id="protein" class="tab-content">
+            <h2>Technical Breakthrough: AI in Protein Synthesis</h2>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Overview of AI in Protein Synthesis</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Protein synthesis is one of the most complex and fundamental processes in molecular biology. The ability of cells to produce proteins based on genetic instructions is central to life, and understanding these processes is critical for drug discovery, enzyme engineering, and synthetic biology. Recent breakthroughs in AI have revolutionized the way scientists explore protein synthesis by accurately predicting protein structures and folding patterns.</p>
+                    
+                    <h4>Key breakthroughs include:</h4>
+                    <ul>
+                        <li><strong>AlphaFold and Beyond:</strong> AI models like AlphaFold have brought about a paradigm shift by predicting protein structures with unprecedented accuracy.</li>
+                        <li><strong>High-Throughput Prediction and Analysis:</strong> AI-powered algorithms can now analyze vast datasets of genomic and proteomic information, offering insights into protein interactions, binding sites, and enzymatic activities.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="chart-container">
+                    <canvas id="proteinSynthesisFlowChart"></canvas>
+                </div>
+                <p class="caption">Figure 10: End-to-End Process Flow of AI-Driven Protein Structure Prediction</p>
+            </div>
+            
+            <h3>Quantitative Improvements in Drug Discovery Through Protein Synthesis</h3>
+            <table>
+                <caption>Table 7: Efficiency Gains in Drug Discovery with AI-Enhanced Protein Synthesis</caption>
+                <thead>
+                    <tr>
+                        <th>Stage</th>
+                        <th>Traditional Timeline</th>
+                        <th>AI-Enhanced Timeline</th>
+                        <th>Efficiency Improvement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Protein Structure Determination</td>
+                        <td>Several months to years</td>
+                        <td>Days to weeks</td>
+                        <td>Up to 90% reduction in time</td>
+                    </tr>
+                    <tr>
+                        <td>Lead Compound Identification</td>
+                        <td>1–2 years</td>
+                        <td>3–6 months</td>
+                        <td>75% faster outcomes</td>
+                    </tr>
+                    <tr>
+                        <td>Preclinical Candidate Testing</td>
+                        <td>Multiple years</td>
+                        <td>18–24 months</td>
+                        <td>Dramatic cost and time saving</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="highlight-box">
+                <h4>AlphaFold's Impact</h4>
+                <p>AI models like AlphaFold have achieved unprecedented accuracy in protein structure prediction, reducing what once took months or years of experimental work to just days or weeks of computational analysis.</p>
+            </div>
+        </div>
+
+        <!-- Future Projections -->
+        <div id="future" class="tab-content">
+            <h2>Future Projections and Challenges</h2>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Emerging Trends and Future Developments</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Looking to the future, projections indicate that AI will continue to expand its influence and capabilities across all sectors. Some key trends include:</p>
+                    
+                    <ul>
+                        <li><strong>Quantum AI Integration:</strong> The convergence of quantum computing with AI promises to further speed up complex calculations.</li>
+                        <li><strong>Self-Optimizing Systems:</strong> As AI systems mature, they will become increasingly capable of self-diagnosis and optimization.</li>
+                        <li><strong>Personalized Services at Scale:</strong> In sectors ranging from education to healthcare, the move toward personalization will accelerate.</li>
+                        <li><strong>Advanced Natural Language Processing (NLP):</strong> The next generation of NLP models is expected to achieve even higher levels of contextual understanding.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Challenges and Ethical Considerations</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <p>Despite these promising developments, the rapid pace of AI adoption is accompanied by several challenges:</p>
+                    
+                    <ul>
+                        <li><strong>Data Quality and Bias:</strong> AI solutions are highly dependent on the quality of data. In sectors such as healthcare and finance, biased or incomplete data can lead to inaccurate predictions and unintended discriminatory outcomes.</li>
+                        <li><strong>Regulatory and Safety Concerns:</strong> As AI becomes more autonomous—especially in critical fields like medicine and finance—regulatory bodies must keep pace with technology.</li>
+                        <li><strong>Workforce Displacement and Transformation:</strong> The push for automation and efficiency brings with it the challenge of workforce displacement.</li>
+                        <li><strong>Security and Privacy:</strong> In a world of interconnected AI systems, ensuring robust cybersecurity measures is essential.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="futureMilestonesChart"></canvas>
+            </div>
+            <p class="caption">Figure 11: Future AI Development and Integration Milestones</p>
+            
+            <div class="highlight-box">
+                <h4>Quantum Computing Impact</h4>
+                <p>In areas such as molecular modeling and protein synthesis, quantum-enhanced AI may provide a 1000× speedup, unlocking solutions to problems once deemed intractable.</p>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div id="conclusion" class="tab-content">
+            <h2>Conclusion</h2>
+            
+            <p>AI is a transformative force with far-reaching impacts across all sectors—from healthcare to education, finance to social services, and beyond. Its ability to automate routine tasks, provide personalized experiences, and accelerate scientific discovery has sparked a revolution that is poised to continue for decades.</p>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Main Findings</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <ul class="key-points">
+                        <li><strong>Healthcare & Pharmaceuticals:</strong> AI is accelerating drug discovery by drastically reducing protein structure prediction times and improving clinical trial success rates.</li>
+                        <li><strong>Education:</strong> Personalized learning environments and adaptive content delivery are revolutionizing traditional teaching methods, leading to markedly improved student outcomes.</li>
+                        <li><strong>Workforce & Business Operations:</strong> Automation and productivity gains—up to 66% on average—are balancing efficiency with the need for human oversight, transforming the modern workplace.</li>
+                        <li><strong>Banking & Finance:</strong> Enhanced credit scoring, fraud detection, and personalized financial services are key drivers of economic growth in the financial sector.</li>
+                        <li><strong>Social Services:</strong> Predictive analytics and AI-driven preventative care are reducing costs and enhancing outcomes in social welfare and elder care services.</li>
+                        <li><strong>Retail & CPG:</strong> AI optimizes supply chain logistics, dynamic pricing, and marketing strategies, leading to significant improvements in operational efficiency and customer engagement.</li>
+                        <li><strong>Protein Synthesis and Biomedical Research:</strong> AI breakthroughs in protein folding and structure analysis empower rapid drug discovery, drastically reducing timelines and cost in pharmaceutical R&D.</li>
+                        <li><strong>Future Projections:</strong> Emerging trends such as quantum AI, self-optimizing systems, and advanced NLP models hold the promise of even more profound transformations—albeit accompanied by challenges in data quality, regulation, workforce adaptation, and security.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3>Key Takeaways</h3>
+                    <span class="expandable-icon">-</span>
+                </div>
+                <div class="expandable-content">
+                    <ul>
+                        <li><strong>Economic Impact:</strong> Generative AI alone could add between $2.6 trillion and $4.4 trillion annually to the global economy, with additional sectors contributing to overall productivity growth ranging from 0.5% to 3.4% per year.</li>
+                        <li><strong>Sector-Wide Transformation:</strong> Nearly every industry is experiencing both immediate benefits and long-term transformative potential from AI, with demonstrable improvements in efficiency, accuracy, and personalization.</li>
+                        <li><strong>Balancing Innovation and Ethics:</strong> While the technological advancements are impressive, ensuring ethical deployment and addressing regulatory, data quality, and workforce challenges remain paramount.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="economicImpactChart"></canvas>
+            </div>
+            <p class="caption">Figure 12: Projected Economic Impact of AI Across Industries (in $ Trillions)</p>
+            
+            <p>In summary, AI is more than a technological tool—it is a catalyst for profound societal and industrial transformation. By embracing AI's potential and addressing its associated challenges, we are paving the way for a more efficient, innovative, and inclusive future.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize chart instances container
+            if (!window.chartInstances) window.chartInstances = {};
+            
+            // Tab navigation functionality
+            function initializeTabs() {
+                try {
+                    const tabButtons = document.querySelectorAll('.tab-button');
+                    const tabContents = document.querySelectorAll('.tab-content');
+                    
+                    if (!tabButtons.length || !tabContents.length) {
+                        console.error('Tab elements not found');
+                        return;
+                    }
+                    
+                    tabButtons.forEach(button => {
+                        button.addEventListener('click', function() {
+                            const tabId = this.getAttribute('data-tab');
+                            
+                            // Remove active class from all tabs and contents
+                            tabButtons.forEach(btn => btn.classList.remove('active'));
+                            tabContents.forEach(content => content.classList.remove('active'));
+                            
+                            // Add active class to current tab and content
+                            this.classList.add('active');
+                            document.getElementById(tabId).classList.add('active');
+                            
+                            // Initialize charts for the active tab
+                            initializeChartsForTab(tabId);
+                            
+                            // Scroll to the top of the content area
+                            window.scrollTo({
+                                top: document.querySelector('.tabs-container').offsetTop,
+                                behavior: 'smooth'
+                            });
+                        });
+                    });
+                    
+                    console.log('Tab navigation initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing tabs:', error);
+                }
+            }
+            
+            // Expandable sections functionality
+            function initializeExpandableSections() {
+                try {
+                    const expandableHeaders = document.querySelectorAll('.expandable-header');
+                    
+                    if (!expandableHeaders.length) {
+                        console.error('Expandable section elements not found');
+                        return;
+                    }
+                    
+                    expandableHeaders.forEach(header => {
+                        header.addEventListener('click', function() {
+                            const content = this.nextElementSibling;
+                            const icon = this.querySelector('.expandable-icon');
+                            
+                            if (content.style.display === 'none') {
+                                content.style.display = 'block';
+                                icon.textContent = '-';
+                            } else {
+                                content.style.display = 'none';
+                                icon.textContent = '+';
+                            }
+                        });
+                    });
+                    
+                    console.log('Expandable sections initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing expandable sections:', error);
+                }
+            }
+            
+            // Initialize specific charts based on active tab
+            function initializeChartsForTab(tabId) {
+                try {
+                    switch(tabId) {
+                        case 'introduction':
+                            initializeAIImpactChart();
+                            break;
+                        case 'healthcare':
+                            initializeDrugDiscoveryChart();
+                            initializePharmaFlowChart();
+                            break;
+                        case 'education':
+                            initializeEducationImpactChart();
+                            initializeLearningFlowChart();
+                            break;
+                        case 'workforce':
+                            initializeWorkforceAutomationChart();
+                            break;
+                        case 'finance':
+                            initializeFinancialImpactChart();
+                            break;
+                        case 'social':
+                            initializeSocialServicesCostChart();
+                            break;
+                        case 'retail':
+                            initializeRetailImpactChart();
+                            break;
+                        case 'protein':
+                            initializeProteinSynthesisFlowChart();
+                            break;
+                        case 'future':
+                            initializeFutureMilestonesChart();
+                            break;
+                        case 'conclusion':
+                            initializeEconomicImpactChart();
+                            break;
+                    }
+                    
+                    console.log(`Charts for tab ${tabId} initialized successfully`);
+                } catch (error) {
+                    console.error(`Error initializing charts for tab ${tabId}:`, error);
+                }
+            }
+            
+            // AI Impact across sectors chart (Introduction tab)
+            function initializeAIImpactChart() {
+                try {
+                    const ctx = document.getElementById('aiImpactChart');
+                    if (!ctx) {
+                        console.error('aiImpactChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.aiImpactChart) {
+                        window.chartInstances.aiImpactChart.destroy();
+                    }
+                    
+                    window.chartInstances.aiImpactChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Healthcare', 'Education', 'Workforce', 'Finance', 'Social Services', 'Retail & CPG'],
+                            datasets: [{
+                                label: 'Productivity Improvement (%)',
+                                data: [55, 62, 66, 35, 48, 42],
+                                backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                                borderColor: 'rgba(52, 152, 219, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Average Improvement (%)'
+                                    },
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Industry Sectors'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'AI\'s Impact Across Different Sectors',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return context.dataset.label + ': ' + context.raw + '%';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    console.log('AI Impact Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing AI Impact Chart:', error);
+                }
+            }
+            
+            // Drug Discovery Timeline Comparison Chart (Healthcare tab)
+            function initializeDrugDiscoveryChart() {
+                try {
+                    const ctx = document.getElementById('drugDiscoveryChart');
+                    if (!ctx) {
+                        console.error('drugDiscoveryChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.drugDiscoveryChart) {
+                        window.chartInstances.drugDiscoveryChart.destroy();
+                    }
+                    
+                    window.chartInstances.drugDiscoveryChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Target Identification', 'Lead Compound Identification', 'Protein Structure Prediction', 'Clinical Trial Success'],
+                            datasets: [
+                                {
+                                    label: 'Traditional Timeline (Months)',
+                                    data: [9, 18, 12, 5],
+                                    backgroundColor: 'rgba(231, 76, 60, 0.7)',
+                                    borderColor: 'rgba(231, 76, 60, 1)',
+                                    borderWidth: 1
+                                },
+                                {
+                                    label: 'AI-Enhanced Timeline (Months)',
+                                    data: [1, 4.5, 1, 3],
+                                    backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                                    borderColor: 'rgba(46, 204, 113, 1)',
+                                    borderWidth: 1
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Time (Months)'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Discovery Stages'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Traditional vs. AI-Enhanced Drug Discovery Timelines',
+                                    font: {
+                                        size: 16
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    console.log('Drug Discovery Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Drug Discovery Chart:', error);
+                }
+            }
+            
+            // Pharmaceutical Process Flow Chart (Healthcare tab)
+            function initializePharmaFlowChart() {
+                try {
+                    const ctx = document.getElementById('pharmaFlowChart');
+                    if (!ctx) {
+                        console.error('pharmaFlowChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.pharmaFlowChart) {
+                        window.chartInstances.pharmaFlowChart.destroy();
+                    }
+                    
+                    // Create horizontal flow chart using horizontal bar chart with custom rendering
+                    window.chartInstances.pharmaFlowChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [
+                                'Genomic and Chemical Data', 
+                                'AI Structure Prediction', 
+                                'Binding Site Analysis', 
+                                'Virtual Screening of Compounds', 
+                                'Lead Compound Identification', 
+                                'Clinical Trial Optimization', 
+                                'Successful Therapeutic Candidate'
+                            ],
+                            datasets: [{
+                                data: [1, 1, 1, 1, 1, 1, 1],
+                                backgroundColor: [
+                                    'rgba(52, 152, 219, 0.7)',
+                                    'rgba(155, 89, 182, 0.7)',
+                                    'rgba(52, 73, 94, 0.7)',
+                                    'rgba(22, 160, 133, 0.7)',
+                                    'rgba(241, 196, 15, 0.7)',
+                                    'rgba(230, 126, 34, 0.7)',
+                                    'rgba(231, 76, 60, 0.7)'
+                                ],
+                                borderColor: [
+                                    'rgba(52, 152, 219, 1)',
+                                    'rgba(155, 89, 182, 1)',
+                                    'rgba(52, 73, 94, 1)',
+                                    'rgba(22, 160, 133, 1)',
+                                    'rgba(241, 196, 15, 1)',
+                                    'rgba(230, 126, 34, 1)',
+                                    'rgba(231, 76, 60, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                x: {
+                                    display: false,
+                                    grid: {
+                                        display: false
+                                    }
+                                },
+                                y: {
+                                    grid: {
+                                        display: false
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'AI-Driven Process Flow in Pharmaceutical Drug Discovery',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return context.label;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Add flow arrows
+                    const flowPlugin = {
+                        id: 'flowArrows',
+                        afterDraw: function(chart) {
+                            const ctx = chart.ctx;
+                            const meta = chart.getDatasetMeta(0);
+                            
+                            ctx.save();
+                            for (let i = 0; i < meta.data.length - 1; i++) {
+                                const current = meta.data[i];
+                                const next = meta.data[i + 1];
+                                
+                                ctx.beginPath();
+                                ctx.moveTo(current.x + current.width, current.y);
+                                ctx.lineTo(next.x, next.y);
+                                ctx.stroke();
+                                
+                                // Draw arrowhead
+                                const angle = Math.atan2(next.y - current.y, next.x - current.x);
+                                ctx.beginPath();
+                                ctx.moveTo(next.x, next.y);
+                                ctx.lineTo(next.x - 10 * Math.cos(angle - Math.PI / 6), next.y - 10 * Math.sin(angle - Math.PI / 6));
+                                ctx.lineTo(next.x - 10 * Math.cos(angle + Math.PI / 6), next.y - 10 * Math.sin(angle + Math.PI / 6));
+                                ctx.closePath();
+                                ctx.fillStyle = 'rgba(52, 73, 94, 0.7)';
+                                ctx.fill();
+                            }
+                            ctx.restore();
+                        }
+                    };
+                    
+                    window.chartInstances.pharmaFlowChart.config.plugins.push(flowPlugin);
+                    window.chartInstances.pharmaFlowChart.update();
+                    
+                    console.log('Pharma Flow Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Pharma Flow Chart:', error);
+                }
+            }
+            
+            // Education Impact Chart (Education tab)
+            function initializeEducationImpactChart() {
+                try {
+                    const ctx = document.getElementById('educationImpactChart');
+                    if (!ctx) {
+                        console.error('educationImpactChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.educationImpactChart) {
+                        window.chartInstances.educationImpactChart.destroy();
+                    }
+                    
+                    window.chartInstances.educationImpactChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Test Score Improvement', 'Teacher Workload Reduction', 'Student Engagement', 'Personalization Level'],
+                            datasets: [{
+                                label: 'Traditional Education',
+                                data: [25, 20, 40, 15],
+                                backgroundColor: 'rgba(231, 76, 60, 0.7)',
+                                borderColor: 'rgba(231, 76, 60, 1)',
+                                borderWidth: 1
+                            }, {
+                                label: 'AI-Enhanced Education',
+                                data: [62, 65, 75, 90],
+                                backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                                borderColor: 'rgba(46, 204, 113, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    title: {
+                                        display: true,
+                                        text: 'Performance Score'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Educational Performance Improvements with AI Integration',
+                                    font: {
+                                        size: 16
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    console.log('Education Impact Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Education Impact Chart:', error);
+                }
+            }
+            
+            // Learning Flow Chart (Education tab)
+            function initializeLearningFlowChart() {
+                try {
+                    const ctx = document.getElementById('learningFlowChart');
+                    if (!ctx) {
+                        console.error('learningFlowChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.learningFlowChart) {
+                        window.chartInstances.learningFlowChart.destroy();
+                    }
+                    
+                    // Similar flow chart visualization as pharmaFlowChart, but with education-specific steps
+                    window.chartInstances.learningFlowChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [
+                                'Student Data Collection', 
+                                'Learning Pattern Analysis', 
+                                'Determine Learning Style',
+                                'Personalized Learning Path',
+                                'Real-Time Feedback',
+                                'Adaptive Evaluation',
+                                'Enhanced Learning Outcomes'
+                            ],
+                            datasets: [{
+                                data: [1, 1, 1, 1, 1, 1, 1],
+                                backgroundColor: [
+                                    'rgba(52, 152, 219, 0.7)',
+                                    'rgba(155, 89, 182, 0.7)',
+                                    'rgba(52, 73, 94, 0.7)',
+                                    'rgba(22, 160, 133, 0.7)',
+                                    'rgba(241, 196, 15, 0.7)',
+                                    'rgba(230, 126, 34, 0.7)',
+                                    'rgba(231, 76, 60, 0.7)'
+                                ],
+                                borderColor: [
+                                    'rgba(52, 152, 219, 1)',
+                                    'rgba(155, 89, 182, 1)',
+                                    'rgba(52, 73, 94, 1)',
+                                    'rgba(22, 160, 133, 1)',
+                                    'rgba(241, 196, 15, 1)',
+                                    'rgba(230, 126, 34, 1)',
+                                    'rgba(231, 76, 60, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                x: {
+                                    display: false,
+                                    grid: {
+                                        display: false
+                                    }
+                                },
+                                y: {
+                                    grid: {
+                                        display: false
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'AI-Driven Adaptive Learning Process in Education',
+                                    font: {
+                                        size: 16
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Add flow arrows similar to pharmaFlowChart
+                    const flowPlugin = {
+                        id: 'flowArrows',
+                        afterDraw: function(chart) {
+                            const ctx = chart.ctx;
+                            const meta = chart.getDatasetMeta(0);
+                            
+                            ctx.save();
+                            for (let i = 0; i < meta.data.length - 1; i++) {
+                                const current = meta.data[i];
+                                const next = meta.data[i + 1];
+                                
+                                ctx.beginPath();
+                                ctx.moveTo(current.x + current.width, current.y);
+                                ctx.lineTo(next.x, next.y);
+                                ctx.stroke();
+                                
+                                // Draw arrowhead
+                                const angle = Math.atan2(next.y - current.y, next.x - current.x);
+                                ctx.beginPath();
+                                ctx.moveTo(next.x, next.y);
+                                ctx.lineTo(next.x - 10 * Math.cos(angle - Math.PI / 6), next.y - 10 * Math.sin(angle - Math.PI / 6));
+                                ctx.lineTo(next.x - 10 * Math.cos(angle + Math.PI / 6), next.y - 10 * Math.sin(angle + Math.PI / 6));
+                                ctx.closePath();
+                                ctx.fillStyle = 'rgba(52, 73, 94, 0.7)';
+                                ctx.fill();
+                            }
+                            ctx.restore();
+                        }
+                    };
+                    
+                    window.chartInstances.learningFlowChart.config.plugins.push(flowPlugin);
+                    window.chartInstances.learningFlowChart.update();
+                    
+                    console.log('Learning Flow Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Learning Flow Chart:', error);
+                }
+            }
+            
+            // Workforce Automation Chart (Workforce tab)
+            function initializeWorkforceAutomationChart() {
+                try {
+                    const ctx = document.getElementById('workforceAutomationChart');
+                    if (!ctx) {
+                        console.error('workforceAutomationChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.workforceAutomationChart) {
+                        window.chartInstances.workforceAutomationChart.destroy();
+                    }
+                    
+                    window.chartInstances.workforceAutomationChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['2020', '2025', '2030', '2035', '2040', '2045', '2050', '2055', '2060'],
+                            datasets: [{
+                                label: 'Task Automation (%)',
+                                data: [20, 30, 40, 48, 55, 60, 65, 68, 70],
+                                borderColor: 'rgba(52, 152, 219, 1)',
+                                backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                                fill: true,
+                                tension: 0.4
+                            }, {
+                                label: 'Productivity Gain (%)',
+                                data: [15, 25, 38, 50, 58, 63, 66, 68, 70],
+                                borderColor: 'rgba(46, 204, 113, 1)',
+                                backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    title: {
+                                        display: true,
+                                        text: 'Percentage (%)'
+                                    },
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Year'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Projected Timeline for Workforce Automation and Productivity Gains',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return context.dataset.label + ': ' + context.raw + '%';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    console.log('Workforce Automation Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Workforce Automation Chart:', error);
+                }
+            }
+            
+            // Financial Impact Chart (Finance tab)
+            function initializeFinancialImpactChart() {
+                try {
+                    const ctx = document.getElementById('financialImpactChart');
+                    if (!ctx) {
+                        console.error('financialImpactChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.financialImpactChart) {
+                        window.chartInstances.financialImpactChart.destroy();
+                    }
+                    
+                    window.chartInstances.financialImpactChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Credit Risk Analysis', 'Trading & Investment', 'Customer Service', 'Regulatory Compliance'],
+                            datasets: [{
+                                label: 'Annual Value ($ Billions)',
+                                data: [270, 180, 120, 90],
+                                backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                                borderColor: 'rgba(52, 152, 219, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Annual Value ($ Billions)'
+                                    },
+                                    ticks: {
+                                        callback: function(value) {
+                                            return '$' + value + 'B';
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Financial Value Creation Through AI Applications',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return context.dataset.label + ': $' + context.raw + 'B';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    console.log('Financial Impact Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Financial Impact Chart:', error);
+                }
+            }
+            
+            // Social Services Cost Chart (Social Services tab)
+            function initializeSocialServicesCostChart() {
+                try {
+                    const ctx = document.getElementById('socialServicesCostChart');
+                    if (!ctx) {
+                        console.error('socialServicesCostChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.socialServicesCostChart) {
+                        window.chartInstances.socialServicesCostChart.destroy();
+                    }
+                    
+                    window.chartInstances.socialServicesCostChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Crisis Management', 'AI-Driven Prevention'],
+                            datasets: [{
+                                label: 'Average Cost Per Case ($)',
+                                data: [100000, 2000],
+                                backgroundColor: [
+                                    'rgba(231, 76, 60, 0.7)',
+                                    'rgba(46, 204, 113, 0.7)'
+                                ],
+                                borderColor: [
+                                    'rgba(231, 76, 60, 1)',
+                                    'rgba(46, 204, 113, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    type: 'logarithmic',
+                                    title: {
+                                        display: true,
+                                        text: 'Cost (logarithmic scale)'
+                                    },
+                                    ticks: {
+                                        callback: function(value) {
+                                            if (value === 100000) return '$100,000';
+                                            if (value === 10000) return '$10,000';
+                                            if (value === 1000) return '$1,000';
+                                            if (value === 100) return '$100';
+                                            return '$' + value;
+                                        }
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Cost Comparison: Traditional Crisis Management vs. AI-Enabled Prevention',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return context.dataset.label + ': $' + context.raw.toLocaleString();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    console.log('Social Services Cost Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Social Services Cost Chart:', error);
+                }
+            }
+            
+            // Retail Impact Chart (Retail tab)
+            function initializeRetailImpactChart() {
+                try {
+                    const ctx = document.getElementById('retailImpactChart');
+                    if (!ctx) {
+                        console.error('retailImpactChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.retailImpactChart) {
+                        window.chartInstances.retailImpactChart.destroy();
+                    }
+                    
+                    window.chartInstances.retailImpactChart = new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: [
+                                'Dynamic Pricing',
+                                'Inventory Management',
+                                'Personalized Marketing',
+                                'Customer Service',
+                                'Supply Chain Optimization'
+                            ],
+                            datasets: [{
+                                label: 'AI Impact Score (out of 100)',
+                                data: [85, 78, 92, 70, 83],
+                                backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                                borderColor: 'rgba(52, 152, 219, 1)',
+                                pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgba(52, 152, 219, 1)'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                r: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    ticks: {
+                                        display: false
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'AI Impact Areas in Retail and CPG',
+                                    font: {
+                                        size: 16
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    console.log('Retail Impact Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Retail Impact Chart:', error);
+                }
+            }
+            
+            // Protein Synthesis Flow Chart (Protein tab)
+            function initializeProteinSynthesisFlowChart() {
+                try {
+                    const ctx = document.getElementById('proteinSynthesisFlowChart');
+                    if (!ctx) {
+                        console.error('proteinSynthesisFlowChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.proteinSynthesisFlowChart) {
+                        window.chartInstances.proteinSynthesisFlowChart.destroy();
+                    }
+                    
+                    // Similar to other flow charts but with protein synthesis steps
+                    window.chartInstances.proteinSynthesisFlowChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [
+                                'Genomic Data Input', 
+                                'Protein Sequence Extraction', 
+                                'Deep Learning Structure Prediction',
+                                'Binding Site Analysis',
+                                'Simulation of Protein Dynamics',
+                                'Validation and Optimization',
+                                'Therapeutic Candidate ID',
+                                'Drug Development Pipeline'
+                            ],
+                            datasets: [{
+                                data: [1, 1, 1, 1, 1, 1, 1, 1],
+                                backgroundColor: [
+                                    'rgba(52, 152, 219, 0.7)',
+                                    'rgba(155, 89, 182, 0.7)',
+                                    'rgba(52, 73, 94, 0.7)',
+                                    'rgba(22, 160, 133, 0.7)',
+                                    'rgba(241, 196, 15, 0.7)',
+                                    'rgba(230, 126, 34, 0.7)',
+                                    'rgba(231, 76, 60, 0.7)',
+                                    'rgba(142, 68, 173, 0.7)'
+                                ],
+                                borderColor: [
+                                    'rgba(52, 152, 219, 1)',
+                                    'rgba(155, 89, 182, 1)',
+                                    'rgba(52, 73, 94, 1)',
+                                    'rgba(22, 160, 133, 1)',
+                                    'rgba(241, 196, 15, 1)',
+                                    'rgba(230, 126, 34, 1)',
+                                    'rgba(231, 76, 60, 1)',
+                                    'rgba(142, 68, 173, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                x: {
+                                    display: false,
+                                    grid: {
+                                        display: false
+                                    }
+                                },
+                                y: {
+                                    grid: {
+                                        display: false
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'End-to-End Process Flow of AI-Driven Protein Structure Prediction',
+                                    font: {
+                                        size: 16
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Add flow arrows
+                    const flowPlugin = {
+                        id: 'flowArrows',
+                        afterDraw: function(chart) {
+                            const ctx = chart.ctx;
+                            const meta = chart.getDatasetMeta(0);
+                            
+                            ctx.save();
+                            for (let i = 0; i < meta.data.length - 1; i++) {
+                                const current = meta.data[i];
+                                const next = meta.data[i + 1];
+                                
+                                ctx.beginPath();
+                                ctx.moveTo(current.x + current.width, current.y);
+                                ctx.lineTo(next.x, next.y);
+                                ctx.stroke();
+                                
+                                // Draw arrowhead
+                                const angle = Math.atan2(next.y - current.y, next.x - current.x);
+                                ctx.beginPath();
+                                ctx.moveTo(next.x, next.y);
+                                ctx.lineTo(next.x - 10 * Math.cos(angle - Math.PI / 6), next.y - 10 * Math.sin(angle - Math.PI / 6));
+                                ctx.lineTo(next.x - 10 * Math.cos(angle + Math.PI / 6), next.y - 10 * Math.sin(angle + Math.PI / 6));
+                                ctx.closePath();
+                                ctx.fillStyle = 'rgba(52, 73, 94, 0.7)';
+                                ctx.fill();
+                            }
+                            ctx.restore();
+                        }
+                    };
+                    
+                    window.chartInstances.proteinSynthesisFlowChart.config.plugins.push(flowPlugin);
+                    window.chartInstances.proteinSynthesisFlowChart.update();
+                    
+                    console.log('Protein Synthesis Flow Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Protein Synthesis Flow Chart:', error);
+                }
+            }
+            
+            // Future Milestones Chart (Future tab)
+            function initializeFutureMilestonesChart() {
+                try {
+                    const ctx = document.getElementById('futureMilestonesChart');
+                    if (!ctx) {
+                        console.error('futureMilestonesChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.futureMilestonesChart) {
+                        window.chartInstances.futureMilestonesChart.destroy();
+                    }
+                    
+                    window.chartInstances.futureMilestonesChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['2023', '2025', '2027', '2030', '2032', '2035', '2038', '2040'],
+                            datasets: [{
+                                label: 'Quantum AI Integration',
+                                data: [10, 20, 30, 55, 65, 75, 80, 85],
+                                borderColor: 'rgba(155, 89, 182, 1)',
+                                backgroundColor: 'rgba(155, 89, 182, 0.1)',
+                                fill: true,
+                                tension: 0.4
+                            }, {
+                                label: 'Self-Optimizing AI',
+                                data: [5, 15, 25, 40, 60, 70, 75, 80],
+                                borderColor: 'rgba(52, 152, 219, 1)',
+                                backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                                fill: true,
+                                tension: 0.4
+                            }, {
+                                label: 'Personalized Services at Scale',
+                                data: [15, 30, 45, 60, 70, 75, 80, 85],
+                                borderColor: 'rgba(46, 204, 113, 1)',
+                                backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    title: {
+                                        display: true,
+                                        text: 'Adoption Level (%)'
+                                    },
+                                    ticks: {
+                                        callback: function(value) {
+                                            return value + '%';
+                                        }
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Year'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Future AI Development and Integration Milestones',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return context.dataset.label + ': ' + context.raw + '%';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    console.log('Future Milestones Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Future Milestones Chart:', error);
+                }
+            }
+            
+            // Economic Impact Chart (Conclusion tab)
+            function initializeEconomicImpactChart() {
+                try {
+                    const ctx = document.getElementById('economicImpactChart');
+                    if (!ctx) {
+                        console.error('economicImpactChart canvas element not found');
+                        return;
+                    }
+                    
+                    // If chart already exists, destroy it
+                    if (window.chartInstances.economicImpactChart) {
+                        window.chartInstances.economicImpactChart.destroy();
+                    }
+                    
+                    window.chartInstances.economicImpactChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: [
+                                'Healthcare & Pharma',
+                                'Education',
+                                'Finance & Banking',
+                                'Workforce & Operations',
+                                'Retail & CPG',
+                                'Social Services',
+                                'Other Sectors'
+                            ],
+                            datasets: [{
+                                data: [0.8, 0.5, 1.1, 0.9, 0.7, 0.2, 0.2],
+                                backgroundColor: [
+                                    'rgba(231, 76, 60, 0.7)',
+                                    'rgba(241, 196, 15, 0.7)',
+                                    'rgba(46, 204, 113, 0.7)',
+                                    'rgba(52, 152, 219, 0.7)',
+                                    'rgba(155, 89, 182, 0.7)',
+                                    'rgba(230, 126, 34, 0.7)',
+                                    'rgba(189, 195, 199, 0.7)'
+                                ],
+                                borderColor: [
+                                    'rgba(231, 76, 60, 1)',
+                                    'rgba(241, 196, 15, 1)',
+                                    'rgba(46, 204, 113, 1)',
+                                    'rgba(52, 152, 219, 1)',
+                                    'rgba(155, 89, 182, 1)',
+                                    'rgba(230, 126, 34, 1)',
+                                    'rgba(189, 195, 199, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Projected Economic Impact of AI Across Industries ($ Trillions)',
+                                    font: {
+                                        size: 16
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return context.label + ': $' + context.raw + ' trillion';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    
+                    console.log('Economic Impact Chart initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing Economic Impact Chart:', error);
+                }
+            }
+            
+            // Handle window resize to redraw charts
+            function handleWindowResize() {
+                try {
+                    // Get current active tab
+                    const activeTab = document.querySelector('.tab-button.active');
+                    if (activeTab) {
+                        const tabId = activeTab.getAttribute('data-tab');
+                        
+                        // Re-initialize charts for the active tab
+                        initializeChartsForTab(tabId);
+                    }
+                    
+                    console.log('Charts redrawn after resize');
+                } catch (error) {
+                    console.error('Error handling window resize:', error);
+                }
+            }
+            
+            // Initialize elements and event listeners
+            try {
+                // Initialize tabs navigation
+                initializeTabs();
+                
+                // Initialize expandable sections
+                initializeExpandableSections();
+                
+                // Initialize charts for the active tab (introduction by default)
+                initializeChartsForTab('introduction');
+                
+                // Add window resize event listener
+                window.addEventListener('resize', function() {
+                    // Debounce the resize event
+                    if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
+                    this.resizeTimeout = setTimeout(handleWindowResize, 300);
+                });
+                
+                console.log('All report functions initialized successfully');
+            } catch (error) {
+                console.error('Error during report initialization:', error);
+            }
+        });
+    </script>
+</body>
+</html>
